@@ -4,7 +4,7 @@ const { DataTypes } = require('sequelize');
 module.exports = (sequelize) => {
   // Define the model
   sequelize.define('type', {
-      //el id queda como numérico autoincremental
+      //The ID remains as autoincremental number
     name: {
         type: DataTypes.STRING,
         allowNull: false,
@@ -17,4 +17,3 @@ module.exports = (sequelize) => {
     );
   };
 
-  

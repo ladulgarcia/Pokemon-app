@@ -27,10 +27,6 @@ module.exports = (sequelize) => {
       type: DataTypes.INTEGER,
       allowNull: true,
     },
-    strength: { // STRENGTH
-      type: DataTypes.INTEGER,
-      allowNull: true,
-    },
     speed: { // SPEED
       type: DataTypes.INTEGER,
       allowNull: true,
