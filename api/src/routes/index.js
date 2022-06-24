@@ -34,6 +34,12 @@ const getApiInfo = async () => {
                 name: pokemon.data.name,
                 img: pokemon.data.sprites.front_default,
                 types: pokemon.data.types.map(e => e.type.name),
+                hp: pokemon.data.stats[0].base_stat,
+                attack: pokemon.data.stats[1].base_stat,
+                defense: pokemon.data.stats[2].base_stat,
+                speed: pokemon.data.stats[5].base_stat,
+                height: pokemon.data.height,
+                weight: pokemon.data.weight,
             }
         }));
         // console.log(pokesWithData);
@@ -42,9 +48,9 @@ const getApiInfo = async () => {
         console.log(e);
     }
 }
-getApiInfo()
 
-//GET from API specified Pokemon by PARAMS (ID)(includes detailed data for detailed route)
+
+//GET from API specified Pokemon by PARAMS (ID)(includes data for detailed route)
 async function getPokemonById(id) {
     try {
         const apiData = await axios.get(`https://pokeapi.co/api/v2/pokemon/${id}`);
@@ -91,7 +97,7 @@ const getAllPokemon = async () => {
 }
 
 // *************************************** GET /pokemon/{idPokemon} *****************************************************
-router.get('/pokemon:id', async (req, res) => {  
+router.get('/pokemons:id', async (req, res) => {  
     try {
         const {id} = req.params;
         if(id) {
@@ -115,7 +121,7 @@ router.get('/pokemon:id', async (req, res) => {
 // NAME as Query parameter by URL (pokeapi or created)
 // If not pokemon found show error message
 
-router.get('/pokemon', async (req, res) => {
+router.get('/pokemons', async (req, res) => {
     try {
         const {name} = req.query;
         const pokemons = await getAllPokemon();
@@ -139,10 +145,8 @@ router.get('/pokemon', async (req, res) => {
 });
 
 
-
-
 // ********************************************* GET/type ********************************************************
-router.get('/type', async (req, res) => {
+router.get('/types', async (req, res) => {
     try {
         const apiType = await axios.get('https://pokeapi.co/api/v2/type'); // Get API info
         const apiTypeInfo = apiType.data;
@@ -163,7 +167,7 @@ router.get('/type', async (req, res) => {
 
 
 // ******************************************* POST/pokemon *****************************************************
-router.post('/pokemon', async (req, res) => {
+router.post('/pokemons', async (req, res) => {
     try {
         const {name, hp, attack, defense, speed, height, weight, typeName} = req.body;
         const pokemon = await Pokemon.create({
