@@ -6,10 +6,10 @@ import thunk from 'redux-thunk';
 //Armo un reducer y lo importo
 import rootReducer from "../reducer/index" // me traje el Reducer
 
-
-const store = createStore(
-    rootReducer,
+export const store = createStore(rootReducer, 
     composeWithDevTools(applyMiddleware(thunk))
     );
-    
-export default store;
+
+/* export const store = configureStore(rootReducer,
+    composeWithDevTools(applyMiddleware(thunk))
+    ); */
