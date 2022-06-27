@@ -5,12 +5,13 @@ import {useState , useEffect} from "react";
 //import hooks from react-redux (install npm i react-redux)
 import {useDispatch,useSelector} from "react-redux";
 //importo actions to be used withing this component
-import { getPokemons } from "../../actions";
+import { getPokemons, cleanPokemons } from "../../actions";
 
 //import components to be used in Home
 import Card from "../Card/Card";
 import Pagination from '../Pagination/Pagination';
 import Nav from '../Nav/Nav';
+import Filters from '../Filters/Filters';
 import Loading from '../Loading/Loading';
 
 export default function Home() {
@@ -20,8 +21,8 @@ export default function Home() {
     
     //Pagination
     const [currentPage, setCurrentPage] = useState(1);
-    const [pokemonsPerPage, setPokemonsPerPage] = useState(12);
-    const [order, setOrder] = useState('');
+    const [pokemonsPerPage, /* setPokemonsPerPage */] = useState(12);
+    const [/* order */, setOrder] = useState('');
     const indexOfLastPokemon = currentPage * pokemonsPerPage; //12
     const indexOfFirstPokemon = indexOfLastPokemon - pokemonsPerPage;
     // console.log(allPokemons);
@@ -37,6 +38,7 @@ export default function Home() {
 
     const handleClick = (e) => {
         e.preventDefault();
+        dispatch(cleanPokemons(dispatch));
         dispatch(getPokemons());
     }
 
@@ -46,12 +48,15 @@ export default function Home() {
             { allPokemons.length > 0 ?
                 <div>
                 <Nav />
-                
                 <div>
                     <h1>PokemonApp</h1>
-                 
                 </div>
-
+                <div>
+                    <Filters setCurrentPage={setCurrentPage} setOrder={setOrder} />
+                </div>
+                <div>
+                    <button onClick={e => {handleClick(e)}}>Clear filters</button>
+                </div>
                 <Pagination
                     pokemonsPerPage={pokemonsPerPage}
                     allPokemons={allPokemons.length}
@@ -75,3 +80,4 @@ export default function Home() {
         </div>
     )
 };
+

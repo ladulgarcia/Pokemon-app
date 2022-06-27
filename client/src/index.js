@@ -18,13 +18,13 @@ reportWebVitals(); */
 
 import React from 'react';
 import ReactDOM from 'react-dom';
-//import './index.css';
+import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 
-// Importar
-import {Provider} from "react-redux" // traer Provider
-import { store } from "./store/index" // traer el Store
+// Import
+import {Provider} from "react-redux" // bring Provider
+import { store } from "./store/index" // bring Store
 import { BrowserRouter } from 'react-router-dom';
 
 

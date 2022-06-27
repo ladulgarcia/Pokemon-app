@@ -13,7 +13,7 @@ const Pagination = ({pokemonsPerPage, allPokemons, pagination}) => {
                 {
                     pageNumbers?.map(number => (
                         <li key={number}>
-                            <a onClick={() => pagination(number)}>{number}</a>
+                            <button onClick={() => pagination(number)}>{number}</button>
                         </li>
                     ))
                 }

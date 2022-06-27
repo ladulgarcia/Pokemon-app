@@ -24,3 +24,4 @@ export default function Card({name, image, types, id}) {
         </div>
     );
 };
+

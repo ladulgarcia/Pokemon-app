@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
  
  
 export default function LandingPage(){
-   return(
+    return(
        <div>
            <h1>Welcome to PokemonApp</h1>
            <Link to='/home'>
@@ -12,3 +12,4 @@ export default function LandingPage(){
        </div>
    )
 }
+
