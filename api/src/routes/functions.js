@@ -19,18 +19,19 @@ const getApiInfo = async () => { // Get API data; from Pokemon URL get data for 
             url = pokemonesApi.next;
         } while (url != null && pokemones.length < 40); //Set Pokemons limit to 40
         // console.log(pokemones);
-         // console.log(pokemones);
          let pokesWithData = await Promise.all(pokemones.map(async e => {
             let pokemon = await axios.get(e.url);
             return {
                 id: pokemon.data.id,
                 name: pokemon.data.name,
-                img: pokemon.data.sprites.other.home.front_default,
+                //img: pokemon.data.sprites.other.home.front_default,
+                img: pokemon.data.sprites.front_default,
                 types: pokemon.data.types.map(e => {
-                    return ({
+/*                     return ({
                         name: e.type.name,
                         img: `https://typedex.app/types/${e.type.name}.png`,
-                    })
+                    }) */
+                    return ({name: e.type.name})
                 }),
                 hp: pokemon.data.stats[0].base_stat,
                 attack: pokemon.data.stats[1].base_stat,
@@ -47,19 +48,20 @@ const getApiInfo = async () => { // Get API data; from Pokemon URL get data for 
     };
 };
 //GET from API specified Pokemon by PARAMS (ID)(includes data for detailed route)
-async function getPokemonDetail(arg) {
+async function getPokemonDetail(id) {
     try {
-        const apiData = await axios.get(`https://pokeapi.co/api/v2/pokemon/${arg}`);
+        const apiData = await axios.get(`https://pokeapi.co/api/v2/pokemon/${id}`);
         const data = await apiData.data;
         const pokemonData = {
             id: data.id,
             name: data.name,
             img: data.sprites.other.home.front_default,
             types: data.types.map(e => {
-                return ({
-                    name: e.type.name,
-                    img: `https://typedex.app/types/${e.type.name}.png`,
-                })
+/*              return ({
+                name: e.type.name,
+                img: `https://typedex.app/types/${e.type.name}.png`,
+            }) */
+                return ({name: e.type.name})
             }),
             hp: data.stats[0].base_stat,
             attack: data.stats[1].base_stat,

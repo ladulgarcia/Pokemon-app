@@ -9,9 +9,10 @@ const router = express.Router();
 // NAME as Query parameter by URL (pokeapi or created)
 // If not pokemon found show error message
 router.get('/', async (req, res) => {
-    const {name} = req.query;
-    const allPokesName = await getAllPokemon();
+    //const {name} = req.query;
+    //const allPokesName = await getAllPokemon();
     try {
+        const {name} = req.query;
         if (name) {
             let poke = allPokesName.filter(e => e.name.toLowerCase() === name.toLowerCase());
             poke.length ? res.status(200).send(poke) : res.status(404).send('Pokemon not found'); 
