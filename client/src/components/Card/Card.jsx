@@ -19,7 +19,7 @@ export default function Card({name, image, types, id}) {
                 })
             }
             <Link to={`/pokemon/${id}`}>
-                <button>Ver detalle</button>
+                <button>See Details</button>
             </Link>
         </div>
     );

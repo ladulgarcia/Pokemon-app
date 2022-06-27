@@ -1,4 +1,5 @@
-import { axios } from 'axios'; // import axios
+import  axios  from 'axios'; // import axios
+//import { axios } from 'axios'; // import axios
 
 export const GET_POKEMONS = 'GET_POKEMONS';
 export const GET_ALL_TYPES = 'GET_ALL_TYPES';
