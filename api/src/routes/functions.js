@@ -19,14 +19,18 @@ const getApiInfo = async () => { // Get API data; from Pokemon URL get data for 
             url = pokemonesApi.next;
         } while (url != null && pokemones.length < 40); //Set Pokemons limit to 40
         // console.log(pokemones);
-        let pokesWithData = await Promise.all(pokemones.map(async e => {
+         // console.log(pokemones);
+         let pokesWithData = await Promise.all(pokemones.map(async e => {
             let pokemon = await axios.get(e.url);
             return {
                 id: pokemon.data.id,
                 name: pokemon.data.name,
-                img: pokemon.data.sprites.front_default,
+                img: pokemon.data.sprites.other.home.front_default,
                 types: pokemon.data.types.map(e => {
-                    return ({name: e.type.name})
+                    return ({
+                        name: e.type.name,
+                        img: `https://typedex.app/types/${e.type.name}.png`,
+                    })
                 }),
                 hp: pokemon.data.stats[0].base_stat,
                 attack: pokemon.data.stats[1].base_stat,
@@ -40,20 +44,22 @@ const getApiInfo = async () => { // Get API data; from Pokemon URL get data for 
         return pokesWithData;
     } catch (e) {
         console.log(e);
-    }
-}
-
+    };
+};
 //GET from API specified Pokemon by PARAMS (ID)(includes data for detailed route)
-async function getPokemonDetail(id) {
+async function getPokemonDetail(arg) {
     try {
-        const apiData = await axios.get(`https://pokeapi.co/api/v2/pokemon/${id}`);
+        const apiData = await axios.get(`https://pokeapi.co/api/v2/pokemon/${arg}`);
         const data = await apiData.data;
         const pokemonData = {
             id: data.id,
             name: data.name,
-            img: data.sprites.front_default,
+            img: data.sprites.other.home.front_default,
             types: data.types.map(e => {
-                return ({name: e.type.name})
+                return ({
+                    name: e.type.name,
+                    img: `https://typedex.app/types/${e.type.name}.png`,
+                })
             }),
             hp: data.stats[0].base_stat,
             attack: data.stats[1].base_stat,
@@ -65,8 +71,8 @@ async function getPokemonDetail(id) {
         return pokemonData;
     } catch (e) {
         console.log(e);
-    }
-}
+    };
+};
 
 
 
@@ -81,8 +87,8 @@ const getDbInfo = async () => {
                 attributes: [],
             },
         }
-    })
-}
+    });
+};
 // ******************************************* Concatenate API + DB *****************************************************
 // GET all Pokemons, from API + DB.
 const getAllPokemon = async () => {
@@ -90,7 +96,7 @@ const getAllPokemon = async () => {
     const dbInfo = await getDbInfo();
     const allPokemon = apiInfo.concat(dbInfo);
     return allPokemon;
-}
+};
 
 module.exports = {
     getApiInfo,
